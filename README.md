@@ -1,3 +1,5 @@
+This README is made with AI
+
 💱 Python Currency Converter
 A simple command-line currency converter built with Python. It uses the ExchangeRate-API to fetch live exchange rates and converts any amount between two currencies. It's a great beginner-to-intermediate project for learning about APIs, HTTP requests, error handling, and modular function design in Python.
 
