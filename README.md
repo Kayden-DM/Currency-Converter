@@ -1,23 +1,47 @@
-Currency Converter
-A command-line Python program that converts between currencies using the Open Exchange Rates API.
+## Currency Converter
+A command-line currency converter written in Python. It uses the requests module to fetch live exchange rates from the open.er-api.com API and converts an amount between two currency codes.
 
-Concepts Used
-requests Library — fetches live exchange rates from an HTTP API endpoint.
+## Features
+Amount Input — Prompts for a numeric amount and rejects non-numeric input.
 
-Exception Handling — try/except catches ValueError for amounts and RequestException for network/API errors.
+Currency Codes — Takes 3-letter currency codes for the source and target currencies, uppercased and stripped automatically.
 
-Functions with Return Values — input, rate lookup, conversion, and display are split into separate functions.
+Live Exchange Rates — Fetches current rates from https://open.er-api.com/v6/latest/{from_currency}.
 
-Features
-Live Exchange Rates — pulls current rates based on the from_currency code.
+Conversion — Multiplies the amount by the fetched rate to get the converted value.
 
-Currency Validation — checks both codes exist in the API's rates dict before converting.
+Formatted Result — Prints the converted amount to 2 decimal places along with the rate used.
 
-Formatted Output — shows the converted total to 2 decimals plus the unit rate.
+Error Handling — Catches network errors with requests.exceptions.RequestException and handles unknown currency codes.
 
-Improvements
-Fix Recursion & Fallthrough — main() calls itself on errors and again on "convert again", stacking frames; return early instead. Also user_input() continues after a bad amount instead of stopping.
+Convert Again — Restarts the converter if the user answers y.
 
-Dead Code & Misplaced Check — rate() checks to_currency before from_currency, and the from_currency check prints but never returns, so it falls through to a KeyError.
+## Technologies Used
+text
+| Technology | Purpose |
+|---|---|
+| Python | Application logic |
+| `requests` | Sends HTTP requests to the exchange rate API |
+| open.er-api.com | Provides live exchange rates |
+| f-strings | Builds the API URL and output messages |
+| `try / except` | Handles invalid amounts and network errors |
+| `raise_for_status()` | Detects HTTP error responses |
+| `input()` / `print()` | Console interaction |
+<!-- -->
+## How to Use It
+Install Python 3.6 or newer from python.org and make sure it's added to your PATH.
 
-Cache & Exit Cleanly — the API is re-fetched every call and exit() appears in a helper; cache the response and use a while loop with a proper quit path.
+Install the requests library by running pip install requests.
+
+Save the code as currency_converter.py.
+
+Open a terminal in the folder containing the file.
+
+Run python currency_converter.py.
+
+Enter an amount, the source currency code (e.g. USD), and the target currency code (e.g. EUR), then answer y or n when asked to convert again.
+
+## Improvements
+Fix the function naming clash — the rate() function and the rate variable returned from it share a name; renaming one (e.g. get_rate() and exchange_rate) would avoid confusion.
+
+Use a loop instead of recursion — main() calls itself on retry and on several error paths, which stacks frames and will eventually hit Python's recursion limit; a while True loop is safer.
