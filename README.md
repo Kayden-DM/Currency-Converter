@@ -17,7 +17,6 @@ Error Handling — Catches network errors with requests.exceptions.RequestExcept
 Convert Again — Restarts the converter if the user answers y.
 
 ## Technologies Used
-text
 | Technology | Purpose |
 |---|---|
 | Python | Application logic |
